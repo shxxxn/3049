@@ -1,13 +1,14 @@
 from PIL import Image
 import numpy as np
-
+# utils/stego.py
+# 文字轉為位元 8bit
 def text_to_bits(text):
     return ''.join([format(ord(c), '08b') for c in text])
-
+# 位元轉為文字
 def bits_to_text(bits):
     chars = [chr(int(bits[i:i+8], 2)) for i in range(0, len(bits), 8)]
     return ''.join(chars)
-
+# 隱藏文字到圖片
 def lsb_embed(image_path, message, output_path):
     img = Image.open(image_path).convert("RGB")
     pixels = np.array(img)
@@ -27,7 +28,7 @@ def lsb_embed(image_path, message, output_path):
 
     new_pixels = flat_pixels.reshape((h, w, 3))
     Image.fromarray(new_pixels.astype('uint8')).save(output_path)
-
+# 提取圖片中的隱藏文字
 def lsb_extract(image_path):
     img = Image.open(image_path).convert("RGB")
     pixels = np.array(img).reshape(-1, 3)

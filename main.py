@@ -41,7 +41,7 @@ class MnemonicHiderApp:
         if path:
             self.key_image_path = path
             self.key_image_label.config(text=f"密鑰圖片：{os.path.basename(path)}")
-
+    # 計算圖片的 SHA-256 哈希值，並取前16位作為金鑰
     def compute_image_hash(self, image_path):
         with open(image_path, 'rb') as f:
             data = f.read()
